@@ -6,21 +6,15 @@ import java.util.*;
 
 public class Snake {
 
-    private Position position;
     private Direction movementDirection;
-    private int speed;
+    private Integer speed;
     private List<Position> body;
 
-    public Snake(Position position, Direction movementDirection, int speed) {
-        this.position = position;
+    public Snake(Position initialPosition, Direction movementDirection, Integer speed) {
         this.movementDirection = movementDirection;
         this.speed = speed;
         this.body = new LinkedList<>();
-        this.body.add(position);
-    }
-
-    public Position getPosition() {
-        return position;
+        this.body.add(initialPosition);
     }
 
     public Direction getMovementDirection() {

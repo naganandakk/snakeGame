@@ -62,7 +62,7 @@ public class SnakeTest {
                 },
                 {
                         new Snake(new Position(1, 0), Direction.LEFT, 2), 1,
-                        Arrays.asList(new Position(1, 0), new Position(3, 1))
+                        Arrays.asList(new Position(1, 0), new Position(3, 0))
                 },
                 {
                         new Snake(new Position(1, 1), Direction.UP, 2), 1,
@@ -78,12 +78,11 @@ public class SnakeTest {
     @Test
     void shouldCreateSnakeObjectWithGivenArguments() {
         Position position = new Position(0, 0);
-        int speed = 1;
+        Integer speed = 1;
         Direction movementDirection = Direction.RIGHT;
 
         Snake snake = new Snake(position, movementDirection, speed);
 
-        assertEquals(position, snake.getPosition());
         assertEquals(movementDirection, snake.getMovementDirection());
         assertEquals(speed, snake.getSpeed());
         assertEquals(1, snake.getBody().size());
