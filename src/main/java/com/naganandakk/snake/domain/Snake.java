@@ -47,14 +47,48 @@ public class Snake {
 
         String oppositeDirection = oppositeDirections.getOrDefault(changeTowards, "");
 
-        if (oppositeDirection != movementDirection) {
+        if (!oppositeDirection.equals(movementDirection)) {
             movementDirection = changeTowards;
         }
     }
 
     public void eat(int foodQuantity) {
         while(foodQuantity-- > 0) {
-            body.add(Arrays.asList(0, 0));
+            List<Integer> tail = body.get(body.size() - 1);
+            switch (movementDirection) {
+                case "RIGHT":
+                    body.add(
+                            Arrays.asList(
+                                    tail.get(0) - speed,
+                                    tail.get(1)
+                            )
+                    );
+                    break;
+                case "LEFT":
+                    body.add(
+                            Arrays.asList(
+                                    tail.get(0) + speed,
+                                    tail.get(1)
+                            )
+                    );
+                    break;
+                case "UP":
+                    body.add(
+                            Arrays.asList(
+                                    tail.get(0),
+                                    tail.get(1) - speed
+                            )
+                    );
+                    break;
+                case "DOWN":
+                    body.add(
+                            Arrays.asList(
+                                    tail.get(0),
+                                    tail.get(1) + speed
+                            )
+                    );
+                    break;
+            }
         }
     }
 }

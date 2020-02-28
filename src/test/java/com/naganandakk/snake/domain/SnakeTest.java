@@ -4,42 +4,80 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SnakeTest {
 
     private static Object[][] shouldChangeMovementDirectionProvider() {
         return new Object[][]{
-                { new Snake(0, 0, "RIGHT", 0), "UP"},
-                { new Snake(0, 0, "RIGHT", 0), "DOWN"},
-                { new Snake(0, 0, "LEFT", 0), "UP"},
-                { new Snake(0, 0, "LEFT", 0), "DOWN"},
-                { new Snake(0, 0, "UP", 0), "LEFT"},
-                { new Snake(0, 0, "UP", 0), "RIGHT"},
-                { new Snake(0, 0, "DOWN", 0), "LEFT"},
-                { new Snake(0, 0, "DOWN", 0), "RIGHT"}
+                { new Snake(0, 0, "RIGHT", 1), "UP"},
+                { new Snake(0, 0, "RIGHT", 1), "DOWN"},
+                { new Snake(0, 0, "LEFT", 1), "UP"},
+                { new Snake(0, 0, "LEFT", 1), "DOWN"},
+                { new Snake(0, 0, "UP", 1), "LEFT"},
+                { new Snake(0, 0, "UP", 1), "RIGHT"},
+                { new Snake(0, 0, "DOWN", 1), "LEFT"},
+                { new Snake(0, 0, "DOWN", 1), "RIGHT"}
         };
     }
 
     private static Object[][] shouldNotChangeMovementDirectionToOppositeSideProvider() {
         return new Object[][]{
-                { new Snake(0, 0, "RIGHT", 0), "LEFT"},
-                { new Snake(0, 0, "LEFT", 0), "RIGHT"},
-                { new Snake(0, 0, "UP", 0), "DOWN"},
-                { new Snake(0, 0, "DOWN", 0), "UP"}
+                { new Snake(0, 0, "RIGHT", 1), "LEFT"},
+                { new Snake(0, 0, "LEFT", 1), "RIGHT"},
+                { new Snake(0, 0, "UP", 1), "DOWN"},
+                { new Snake(0, 0, "DOWN", 1), "UP"}
         };
     }
 
     private static Object[][] shouldGrowAfterEatingProvider() {
         return new Object[][]{
-                { new Snake(0, 0, "RIGHT", 0), 2},
-                { new Snake(0, 0, "LEFT", 0), 3},
-                { new Snake(0, 0, "UP", 0), 4},
-                { new Snake(0, 0, "DOWN", 0), 1}
+                { new Snake(0, 0, "RIGHT", 1), 2},
+                { new Snake(0, 0, "LEFT", 1), 3},
+                { new Snake(0, 0, "UP", 1), 4},
+                { new Snake(0, 0, "DOWN", 1), 1}
         };
     }
 
+    private static Object[][] shouldAddBodyPartsAfterEatingProvider() {
+        return new Object[][]{
+                {
+                    new Snake(1, 0, "RIGHT", 1), 1,
+                        Arrays.asList(Arrays.asList(1, 0), Arrays.asList(0, 0))
+                },
+                {
+                        new Snake(1, 0, "LEFT", 1), 1,
+                        Arrays.asList(Arrays.asList(1, 0), Arrays.asList(2, 0))
+                },
+                {
+                        new Snake(1, 1, "UP", 1), 1,
+                        Arrays.asList(Arrays.asList(1, 1), Arrays.asList(1, 0))
+                },
+                {
+                        new Snake(1, 1, "DOWN", 1), 1,
+                        Arrays.asList(Arrays.asList(1, 1), Arrays.asList(1, 2))
+                },
+                {
+                        new Snake(1, 0, "RIGHT", 2), 1,
+                        Arrays.asList(Arrays.asList(1, 0), Arrays.asList(-1, 0))
+                },
+                {
+                        new Snake(1, 0, "LEFT", 2), 1,
+                        Arrays.asList(Arrays.asList(1, 0), Arrays.asList(3, 0))
+                },
+                {
+                        new Snake(1, 1, "UP", 2), 1,
+                        Arrays.asList(Arrays.asList(1, 1), Arrays.asList(1, -1))
+                },
+                {
+                        new Snake(1, 1, "DOWN", 2), 1,
+                        Arrays.asList(Arrays.asList(1, 1), Arrays.asList(1, 3))
+                }
+        };
+    }
 
     @Test
     void shouldCreateSnakeObjectWithGivenArguments() {
@@ -78,5 +116,27 @@ public class SnakeTest {
         snake.eat(foodQuantity);
 
         assertEquals(expectedBodySize, snake.getBody().size());
+    }
+
+    @ParameterizedTest
+    @MethodSource("shouldAddBodyPartsAfterEatingProvider")
+    void shouldAddBodyPartsAfterEating(Snake snake, int foodQuantity, List<List<Integer>> expectedBody) {
+        snake.eat(foodQuantity);
+        List<List<Integer>> actualBody = snake.getBody();
+
+        assertEquals(expectedBody.size(), actualBody.size());
+
+        for (int index = 0; index < expectedBody.size(); index++) {
+            List<Integer> expectedBodyPart = expectedBody.get(index);
+            List<Integer> actualBodyPart = actualBody.get(index);
+            Integer expectedPosX = expectedBodyPart.get(0);
+            Integer expectedPosY = expectedBodyPart.get(1);
+            Integer actualPosX = actualBodyPart.get(0);
+            Integer actualPosY = actualBodyPart.get(1);
+
+            if ((!expectedPosX.equals(actualPosX)) || (expectedPosY != actualPosY)) {
+                fail("Invalid snake body");
+            }
+        }
     }
 }
