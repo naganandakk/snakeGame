@@ -5,27 +5,22 @@ import com.naganandakk.snake.enums.Direction;
 import java.util.*;
 
 public class Snake {
-    private int posX;
-    private int posY;
+
+    private Position position;
     private Direction movementDirection;
     private int speed;
-    private List<List<Integer>> body;
+    private List<Position> body;
 
-    public Snake(int posX, int posY, Direction movementDirection, int speed) {
-        this.posX = posX;
-        this.posY = posY;
+    public Snake(Position position, Direction movementDirection, int speed) {
+        this.position = position;
         this.movementDirection = movementDirection;
         this.speed = speed;
         this.body = new LinkedList<>();
-        this.body.add(Arrays.asList(posX, posY));
+        this.body.add(position);
     }
 
-    public int getPosX() {
-        return posX;
-    }
-
-    public int getPosY() {
-        return posY;
+    public Position getPosition() {
+        return position;
     }
 
     public Direction getMovementDirection() {
@@ -36,7 +31,7 @@ public class Snake {
         return speed;
     }
 
-    public List<List<Integer>> getBody() {
+    public List<Position> getBody() {
         return body;
     }
 
@@ -56,41 +51,26 @@ public class Snake {
 
     public void eat(int foodQuantity) {
         while(foodQuantity-- > 0) {
-            List<Integer> tail = body.get(body.size() - 1);
+            Position tail = body.get(body.size() - 1);
+            Integer tailX = tail.getX();
+            Integer tailY = tail.getY();
+
             switch (movementDirection) {
                 case RIGHT:
-                    body.add(
-                            Arrays.asList(
-                                    tail.get(0) - speed,
-                                    tail.get(1)
-                            )
-                    );
+                    tailX -= speed;
                     break;
                 case LEFT:
-                    body.add(
-                            Arrays.asList(
-                                    tail.get(0) + speed,
-                                    tail.get(1)
-                            )
-                    );
+                    tailX += speed;
                     break;
                 case UP:
-                    body.add(
-                            Arrays.asList(
-                                    tail.get(0),
-                                    tail.get(1) - speed
-                            )
-                    );
+                    tailY -= speed;
                     break;
                 case DOWN:
-                    body.add(
-                            Arrays.asList(
-                                    tail.get(0),
-                                    tail.get(1) + speed
-                            )
-                    );
+                    tailY += speed;
                     break;
             }
+
+            body.add(new Position(tailX, tailY));
         }
     }
 }

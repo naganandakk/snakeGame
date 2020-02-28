@@ -14,76 +14,76 @@ public class SnakeTest {
 
     private static Object[][] shouldChangeMovementDirectionExceptOppositeDirectionProvider() {
         return new Object[][]{
-                { new Snake(0, 0, Direction.RIGHT, 1), Direction.UP, Direction.UP},
-                { new Snake(0, 0, Direction.RIGHT, 1), Direction.DOWN, Direction.DOWN},
-                { new Snake(0, 0, Direction.LEFT, 1), Direction.UP, Direction.UP},
-                { new Snake(0, 0, Direction.LEFT, 1), Direction.DOWN, Direction.DOWN},
-                { new Snake(0, 0, Direction.UP, 1), Direction.LEFT, Direction.LEFT},
-                { new Snake(0, 0, Direction.UP, 1), Direction.RIGHT, Direction.RIGHT},
-                { new Snake(0, 0, Direction.DOWN, 1), Direction.LEFT, Direction.LEFT},
-                { new Snake(0, 0, Direction.DOWN, 1), Direction.RIGHT, Direction.RIGHT},
-                { new Snake(0, 0, Direction.RIGHT, 1), Direction.LEFT, Direction.RIGHT},
-                { new Snake(0, 0, Direction.LEFT, 1), Direction.RIGHT, Direction.LEFT},
-                { new Snake(0, 0, Direction.UP, 1), Direction.DOWN, Direction.UP},
-                { new Snake(0, 0, Direction.DOWN, 1), Direction.UP, Direction.DOWN}
+                { new Snake(new Position(0, 0), Direction.RIGHT, 1), Direction.UP, Direction.UP},
+                { new Snake(new Position(0, 0), Direction.RIGHT, 1), Direction.DOWN, Direction.DOWN},
+                { new Snake(new Position(0, 0), Direction.LEFT, 1), Direction.UP, Direction.UP},
+                { new Snake(new Position(0, 0), Direction.LEFT, 1), Direction.DOWN, Direction.DOWN},
+                { new Snake(new Position(0, 0), Direction.UP, 1), Direction.LEFT, Direction.LEFT},
+                { new Snake(new Position(0, 0), Direction.UP, 1), Direction.RIGHT, Direction.RIGHT},
+                { new Snake(new Position(0, 0), Direction.DOWN, 1), Direction.LEFT, Direction.LEFT},
+                { new Snake(new Position(0, 0), Direction.DOWN, 1), Direction.RIGHT, Direction.RIGHT},
+                { new Snake(new Position(0, 0), Direction.RIGHT, 1), Direction.LEFT, Direction.RIGHT},
+                { new Snake(new Position(0, 0), Direction.LEFT, 1), Direction.RIGHT, Direction.LEFT},
+                { new Snake(new Position(0, 0), Direction.UP, 1), Direction.DOWN, Direction.UP},
+                { new Snake(new Position(0, 0), Direction.DOWN, 1), Direction.UP, Direction.DOWN}
         };
     }
 
     private static Object[][] shouldGrowAfterEatingProvider() {
         return new Object[][]{
-                { new Snake(0, 0, Direction.RIGHT, 1), 2},
-                { new Snake(0, 0, Direction.LEFT, 1), 3},
-                { new Snake(0, 0, Direction.UP, 1), 4},
-                { new Snake(0, 0, Direction.DOWN, 1), 1}
+                { new Snake(new Position(0, 0), Direction.RIGHT, 1), 2},
+                { new Snake(new Position(0, 0), Direction.LEFT, 1), 3},
+                { new Snake(new Position(0, 0), Direction.UP, 1), 4},
+                { new Snake(new Position(0, 0), Direction.DOWN, 1), 1}
         };
     }
 
     private static Object[][] shouldAddBodyPartsAfterEatingProvider() {
         return new Object[][]{
                 {
-                    new Snake(1, 0, Direction.RIGHT, 1), 1,
-                        Arrays.asList(Arrays.asList(1, 0), Arrays.asList(0, 0))
+                    new Snake(new Position(1, 0), Direction.RIGHT, 1), 1,
+                        Arrays.asList(new Position(1, 0), new Position(0, 0))
                 },
                 {
-                        new Snake(1, 0, Direction.LEFT, 1), 1,
-                        Arrays.asList(Arrays.asList(1, 0), Arrays.asList(2, 0))
+                        new Snake(new Position(1, 0), Direction.LEFT, 1), 1,
+                        Arrays.asList(new Position(1, 0), new Position(2, 0))
                 },
                 {
-                        new Snake(1, 1, Direction.UP, 1), 1,
-                        Arrays.asList(Arrays.asList(1, 1), Arrays.asList(1, 0))
+                        new Snake(new Position(1, 1), Direction.UP, 1), 1,
+                        Arrays.asList(new Position(1, 1), new Position(1, 0))
                 },
                 {
-                        new Snake(1, 1, Direction.DOWN, 1), 1,
-                        Arrays.asList(Arrays.asList(1, 1), Arrays.asList(1, 2))
+                        new Snake(new Position(1, 1), Direction.DOWN, 1), 1,
+                        Arrays.asList(new Position(1, 1), new Position(1, 2))
                 },
                 {
-                        new Snake(1, 0, Direction.RIGHT, 2), 1,
-                        Arrays.asList(Arrays.asList(1, 0), Arrays.asList(-1, 0))
+                        new Snake(new Position(1, 0), Direction.RIGHT, 2), 1,
+                        Arrays.asList(new Position(1, 0), new Position(-1, 0))
                 },
                 {
-                        new Snake(1, 0, Direction.LEFT, 2), 1,
-                        Arrays.asList(Arrays.asList(1, 0), Arrays.asList(3, 0))
+                        new Snake(new Position(1, 0), Direction.LEFT, 2), 1,
+                        Arrays.asList(new Position(1, 0), new Position(3, 1))
                 },
                 {
-                        new Snake(1, 1, Direction.UP, 2), 1,
-                        Arrays.asList(Arrays.asList(1, 1), Arrays.asList(1, -1))
+                        new Snake(new Position(1, 1), Direction.UP, 2), 1,
+                        Arrays.asList(new Position(1, 1), new Position(1, -1))
                 },
                 {
-                        new Snake(1, 1, Direction.DOWN, 2), 1,
-                        Arrays.asList(Arrays.asList(1, 1), Arrays.asList(1, 3))
+                        new Snake(new Position(1, 1), Direction.DOWN, 2), 1,
+                        Arrays.asList(new Position(1, 1), new Position(1, 3))
                 }
         };
     }
 
     @Test
     void shouldCreateSnakeObjectWithGivenArguments() {
-        int posX = 0, posY = 0, speed = 1;
+        Position position = new Position(0, 0);
+        int speed = 1;
         Direction movementDirection = Direction.RIGHT;
 
-        Snake snake = new Snake(posX, posY, movementDirection, speed);
+        Snake snake = new Snake(position, movementDirection, speed);
 
-        assertEquals(posX, snake.getPosX());
-        assertEquals(posY, snake.getPosY());
+        assertEquals(position, snake.getPosition());
         assertEquals(movementDirection, snake.getMovementDirection());
         assertEquals(speed, snake.getSpeed());
         assertEquals(1, snake.getBody().size());
@@ -108,21 +108,17 @@ public class SnakeTest {
 
     @ParameterizedTest
     @MethodSource("shouldAddBodyPartsAfterEatingProvider")
-    void shouldAddBodyPartsAfterEating(Snake snake, int foodQuantity, List<List<Integer>> expectedBody) {
+    void shouldAddBodyPartsAfterEating(Snake snake, int foodQuantity, List<Position> expectedBody) {
         snake.eat(foodQuantity);
-        List<List<Integer>> actualBody = snake.getBody();
+        List<Position> actualBody = snake.getBody();
 
         assertEquals(expectedBody.size(), actualBody.size());
 
         for (int index = 0; index < expectedBody.size(); index++) {
-            List<Integer> expectedBodyPart = expectedBody.get(index);
-            List<Integer> actualBodyPart = actualBody.get(index);
-            Integer expectedPosX = expectedBodyPart.get(0);
-            Integer expectedPosY = expectedBodyPart.get(1);
-            Integer actualPosX = actualBodyPart.get(0);
-            Integer actualPosY = actualBodyPart.get(1);
+            Position expectedBodyPart = expectedBody.get(index);
+            Position actualBodyPart = actualBody.get(index);
 
-            if ((!expectedPosX.equals(actualPosX)) || (expectedPosY != actualPosY)) {
+            if (!expectedBodyPart.equals(actualBodyPart)) {
                 fail("Invalid snake body");
             }
         }
