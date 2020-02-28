@@ -14,34 +14,34 @@ public class SnakeTest {
 
     private static Object[][] shouldChangeMovementDirectionExceptOppositeDirectionProvider() {
         return new Object[][]{
-                { new Snake(new Position(0, 0), Direction.RIGHT, 1), Direction.UP, Direction.UP},
-                { new Snake(new Position(0, 0), Direction.RIGHT, 1), Direction.DOWN, Direction.DOWN},
-                { new Snake(new Position(0, 0), Direction.LEFT, 1), Direction.UP, Direction.UP},
-                { new Snake(new Position(0, 0), Direction.LEFT, 1), Direction.DOWN, Direction.DOWN},
-                { new Snake(new Position(0, 0), Direction.UP, 1), Direction.LEFT, Direction.LEFT},
-                { new Snake(new Position(0, 0), Direction.UP, 1), Direction.RIGHT, Direction.RIGHT},
-                { new Snake(new Position(0, 0), Direction.DOWN, 1), Direction.LEFT, Direction.LEFT},
-                { new Snake(new Position(0, 0), Direction.DOWN, 1), Direction.RIGHT, Direction.RIGHT},
-                { new Snake(new Position(0, 0), Direction.RIGHT, 1), Direction.LEFT, Direction.RIGHT},
-                { new Snake(new Position(0, 0), Direction.LEFT, 1), Direction.RIGHT, Direction.LEFT},
-                { new Snake(new Position(0, 0), Direction.UP, 1), Direction.DOWN, Direction.UP},
-                { new Snake(new Position(0, 0), Direction.DOWN, 1), Direction.UP, Direction.DOWN}
+                {new Snake(new Position(0, 0), Direction.RIGHT, 1), Direction.UP, Direction.UP},
+                {new Snake(new Position(0, 0), Direction.RIGHT, 1), Direction.DOWN, Direction.DOWN},
+                {new Snake(new Position(0, 0), Direction.LEFT, 1), Direction.UP, Direction.UP},
+                {new Snake(new Position(0, 0), Direction.LEFT, 1), Direction.DOWN, Direction.DOWN},
+                {new Snake(new Position(0, 0), Direction.UP, 1), Direction.LEFT, Direction.LEFT},
+                {new Snake(new Position(0, 0), Direction.UP, 1), Direction.RIGHT, Direction.RIGHT},
+                {new Snake(new Position(0, 0), Direction.DOWN, 1), Direction.LEFT, Direction.LEFT},
+                {new Snake(new Position(0, 0), Direction.DOWN, 1), Direction.RIGHT, Direction.RIGHT},
+                {new Snake(new Position(0, 0), Direction.RIGHT, 1), Direction.LEFT, Direction.RIGHT},
+                {new Snake(new Position(0, 0), Direction.LEFT, 1), Direction.RIGHT, Direction.LEFT},
+                {new Snake(new Position(0, 0), Direction.UP, 1), Direction.DOWN, Direction.UP},
+                {new Snake(new Position(0, 0), Direction.DOWN, 1), Direction.UP, Direction.DOWN}
         };
     }
 
     private static Object[][] shouldGrowAfterEatingProvider() {
         return new Object[][]{
-                { new Snake(new Position(0, 0), Direction.RIGHT, 1), 2},
-                { new Snake(new Position(0, 0), Direction.LEFT, 1), 3},
-                { new Snake(new Position(0, 0), Direction.UP, 1), 4},
-                { new Snake(new Position(0, 0), Direction.DOWN, 1), 1}
+                {new Snake(new Position(0, 0), Direction.RIGHT, 1), 2},
+                {new Snake(new Position(0, 0), Direction.LEFT, 1), 3},
+                {new Snake(new Position(0, 0), Direction.UP, 1), 4},
+                {new Snake(new Position(0, 0), Direction.DOWN, 1), 1}
         };
     }
 
     private static Object[][] shouldAddBodyPartsAfterEatingProvider() {
         return new Object[][]{
                 {
-                    new Snake(new Position(1, 0), Direction.RIGHT, 1), 1,
+                        new Snake(new Position(1, 0), Direction.RIGHT, 1), 1,
                         Arrays.asList(new Position(1, 0), new Position(0, 0))
                 },
                 {
