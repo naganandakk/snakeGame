@@ -1,15 +1,17 @@
 package com.naganandakk.snake.domain;
 
+import com.naganandakk.snake.enums.Direction;
+
 import java.util.*;
 
 public class Snake {
     private int posX;
     private int posY;
-    private String movementDirection;
+    private Direction movementDirection;
     private int speed;
     private List<List<Integer>> body;
 
-    public Snake(int posX, int posY, String movementDirection, int speed) {
+    public Snake(int posX, int posY, Direction movementDirection, int speed) {
         this.posX = posX;
         this.posY = posY;
         this.movementDirection = movementDirection;
@@ -26,7 +28,7 @@ public class Snake {
         return posY;
     }
 
-    public String getMovementDirection() {
+    public Direction getMovementDirection() {
         return movementDirection;
     }
 
@@ -38,7 +40,7 @@ public class Snake {
         return body;
     }
 
-    public void changeMovementDirection(String changeTowards) {
+    public void changeMovementDirection(Direction changeTowards) {
         Map<String, String> oppositeDirections = new HashMap<>();
         oppositeDirections.put("LEFT", "RIGHT");
         oppositeDirections.put("RIGHT", "LEFT");
@@ -56,7 +58,7 @@ public class Snake {
         while(foodQuantity-- > 0) {
             List<Integer> tail = body.get(body.size() - 1);
             switch (movementDirection) {
-                case "RIGHT":
+                case RIGHT:
                     body.add(
                             Arrays.asList(
                                     tail.get(0) - speed,
@@ -64,7 +66,7 @@ public class Snake {
                             )
                     );
                     break;
-                case "LEFT":
+                case LEFT:
                     body.add(
                             Arrays.asList(
                                     tail.get(0) + speed,
@@ -72,7 +74,7 @@ public class Snake {
                             )
                     );
                     break;
-                case "UP":
+                case UP:
                     body.add(
                             Arrays.asList(
                                     tail.get(0),
@@ -80,7 +82,7 @@ public class Snake {
                             )
                     );
                     break;
-                case "DOWN":
+                case DOWN:
                     body.add(
                             Arrays.asList(
                                     tail.get(0),
