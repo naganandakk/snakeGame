@@ -12,25 +12,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SnakeTest {
 
-    private static Object[][] shouldChangeMovementDirectionProvider() {
+    private static Object[][] shouldChangeMovementDirectionExceptOppositeDirectionProvider() {
         return new Object[][]{
-                { new Snake(0, 0, Direction.RIGHT, 1), Direction.UP},
-                { new Snake(0, 0, Direction.RIGHT, 1), Direction.DOWN},
-                { new Snake(0, 0, Direction.LEFT, 1), Direction.UP},
-                { new Snake(0, 0, Direction.LEFT, 1), Direction.DOWN},
-                { new Snake(0, 0, Direction.UP, 1), Direction.LEFT},
-                { new Snake(0, 0, Direction.UP, 1), Direction.RIGHT},
-                { new Snake(0, 0, Direction.DOWN, 1), Direction.LEFT},
-                { new Snake(0, 0, Direction.DOWN, 1), Direction.RIGHT}
-        };
-    }
-
-    private static Object[][] shouldNotChangeMovementDirectionToOppositeSideProvider() {
-        return new Object[][]{
-                { new Snake(0, 0, Direction.RIGHT, 1), Direction.LEFT},
-                { new Snake(0, 0, Direction.LEFT, 1), Direction.RIGHT},
-                { new Snake(0, 0, Direction.UP, 1), Direction.DOWN},
-                { new Snake(0, 0, Direction.DOWN, 1), Direction.UP}
+                { new Snake(0, 0, Direction.RIGHT, 1), Direction.UP, Direction.UP},
+                { new Snake(0, 0, Direction.RIGHT, 1), Direction.DOWN, Direction.DOWN},
+                { new Snake(0, 0, Direction.LEFT, 1), Direction.UP, Direction.UP},
+                { new Snake(0, 0, Direction.LEFT, 1), Direction.DOWN, Direction.DOWN},
+                { new Snake(0, 0, Direction.UP, 1), Direction.LEFT, Direction.LEFT},
+                { new Snake(0, 0, Direction.UP, 1), Direction.RIGHT, Direction.RIGHT},
+                { new Snake(0, 0, Direction.DOWN, 1), Direction.LEFT, Direction.LEFT},
+                { new Snake(0, 0, Direction.DOWN, 1), Direction.RIGHT, Direction.RIGHT},
+                { new Snake(0, 0, Direction.RIGHT, 1), Direction.LEFT, Direction.RIGHT},
+                { new Snake(0, 0, Direction.LEFT, 1), Direction.RIGHT, Direction.LEFT},
+                { new Snake(0, 0, Direction.UP, 1), Direction.DOWN, Direction.UP},
+                { new Snake(0, 0, Direction.DOWN, 1), Direction.UP, Direction.DOWN}
         };
     }
 
@@ -95,19 +90,11 @@ public class SnakeTest {
     }
 
     @ParameterizedTest
-    @MethodSource("shouldChangeMovementDirectionProvider")
-    void shouldChangeMovementDirection(Snake snake, Direction changeTowards) {
+    @MethodSource("shouldChangeMovementDirectionExceptOppositeDirectionProvider")
+    void shouldChangeMovementDirectionExceptOppositeDirection(Snake snake, Direction changeTowards, Direction expected) {
         snake.changeMovementDirection(changeTowards);
 
-        assertEquals(changeTowards, snake.getMovementDirection());
-    }
-
-    @ParameterizedTest
-    @MethodSource("shouldNotChangeMovementDirectionToOppositeSideProvider")
-    void shouldNotChangeMovementDirectionToOppositeSide(Snake snake, Direction oppositeDirection) {
-        snake.changeMovementDirection(oppositeDirection);
-
-        assertNotEquals(oppositeDirection, snake.getMovementDirection());
+        assertEquals(expected, snake.getMovementDirection());
     }
 
     @ParameterizedTest
