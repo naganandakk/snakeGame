@@ -43,22 +43,29 @@ public class SnakeTest {
         Snake snakeLeft = new Snake(new Position(3, 0), Direction.LEFT, 1);
         Snake snakeUp = new Snake(new Position(0, 0), Direction.UP, 1);
         Snake snakeDown = new Snake(new Position(0, 3), Direction.DOWN, 1);
+        Snake snakeRightSinglePart = new Snake(new Position(0, 0), Direction.RIGHT, 1);
+        Snake snakeWithSpeedTwo = new Snake(new Position(0, 0), Direction.RIGHT, 2);
 
         snakeRight.eat(1);
         snakeLeft.eat(1);
         snakeDown.eat(1);
         snakeUp.eat(1);
+        snakeWithSpeedTwo.eat(1);
 
         List<Position> snakeRightExpectedBody = Arrays.asList(new Position(1, 0), new Position(0, 0));
         List<Position> snakeLeftExpectedBody = Arrays.asList(new Position(2, 0), new Position(3, 0));
         List<Position> snakeUpExpectedBody = Arrays.asList(new Position(0, 1), new Position(0, 0));
         List<Position> snakeDownExpectedBody = Arrays.asList(new Position(0, 2), new Position(0, 3));
+        List<Position> snakeRightSinglePartExpectedBody = Arrays.asList(new Position(1, 0));
+        List<Position> snakeWithSpeedTwoExpectedBody = Arrays.asList(new Position(2, 0), new Position(0, 0));
 
         return new Object[][]{
                 {snakeRight, snakeRightExpectedBody},
                 {snakeLeft, snakeLeftExpectedBody},
                 {snakeUp, snakeUpExpectedBody},
-                {snakeDown, snakeDownExpectedBody}
+                {snakeDown, snakeDownExpectedBody},
+                {snakeRightSinglePart, snakeRightSinglePartExpectedBody},
+                {snakeWithSpeedTwo, snakeWithSpeedTwoExpectedBody}
         };
     }
 
