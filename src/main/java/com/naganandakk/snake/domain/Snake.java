@@ -67,4 +67,35 @@ public class Snake {
             body.add(new Position(tailX, tailY));
         }
     }
+
+    public void move() {
+        // shift snake body except head
+        if (body.size() > 1) {
+            for (int index = body.size() - 1; index >= 1; index--) {
+                body.set(index, body.get(index - 1));
+            }
+        }
+
+        Position head = body.get(0);
+        Integer headX = head.getX();
+        Integer headY = head.getY();
+
+        switch (movementDirection) {
+            case RIGHT:
+                headX += speed;
+                break;
+            case LEFT:
+                headX -= speed;
+                break;
+            case UP:
+                headY += speed;
+                break;
+            case DOWN:
+                headY -= speed;
+                break;
+        }
+
+        Position newHead = new Position(headX, headY);
+        body.set(0, newHead);
+    }
 }

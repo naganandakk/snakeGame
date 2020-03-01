@@ -38,6 +38,30 @@ public class SnakeTest {
         };
     }
 
+    private static Object[][] shouldMoveInCurrentDirectionProvider() {
+        Snake snakeRight = new Snake(new Position(0, 0), Direction.RIGHT, 1);
+        Snake snakeLeft = new Snake(new Position(3, 0), Direction.LEFT, 1);
+        Snake snakeUp = new Snake(new Position(0, 0), Direction.UP, 1);
+        Snake snakeDown = new Snake(new Position(0, 3), Direction.DOWN, 1);
+
+        snakeRight.eat(1);
+        snakeLeft.eat(1);
+        snakeDown.eat(1);
+        snakeUp.eat(1);
+
+        List<Position> snakeRightExpectedBody = Arrays.asList(new Position(1, 0), new Position(0, 0));
+        List<Position> snakeLeftExpectedBody = Arrays.asList(new Position(2, 0), new Position(3, 0));
+        List<Position> snakeUpExpectedBody = Arrays.asList(new Position(0, 1), new Position(0, 0));
+        List<Position> snakeDownExpectedBody = Arrays.asList(new Position(0, 2), new Position(0, 3));
+
+        return new Object[][]{
+                {snakeRight, snakeRightExpectedBody},
+                {snakeLeft, snakeLeftExpectedBody},
+                {snakeUp, snakeUpExpectedBody},
+                {snakeDown, snakeDownExpectedBody}
+        };
+    }
+
     private static Object[][] shouldAddBodyPartsAfterEatingProvider() {
         return new Object[][]{
                 {
@@ -109,10 +133,20 @@ public class SnakeTest {
     @MethodSource("shouldAddBodyPartsAfterEatingProvider")
     void shouldAddBodyPartsAfterEating(Snake snake, int foodQuantity, List<Position> expectedBody) {
         snake.eat(foodQuantity);
+        assertEquals(expectedBody.size(), snake.getBody().size());
+        checkSnakeBody(snake, expectedBody);
+    }
+
+    @ParameterizedTest
+    @MethodSource("shouldMoveInCurrentDirectionProvider")
+    void shouldMoveInCurrentDirection(Snake snake, List<Position> expectedBody) {
+        snake.move();
+
+        checkSnakeBody(snake, expectedBody);
+    }
+
+    private void checkSnakeBody(Snake snake, List<Position> expectedBody) {
         List<Position> actualBody = snake.getBody();
-
-        assertEquals(expectedBody.size(), actualBody.size());
-
         for (int index = 0; index < expectedBody.size(); index++) {
             Position expectedBodyPart = expectedBody.get(index);
             Position actualBodyPart = actualBody.get(index);
