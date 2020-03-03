@@ -5,9 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SnakeTest {
@@ -52,12 +53,12 @@ public class SnakeTest {
         snakeUp.eat(1);
         snakeWithSpeedTwo.eat(1);
 
-        List<Position> snakeRightExpectedBody = Arrays.asList(new Position(1, 0), new Position(0, 0));
-        List<Position> snakeLeftExpectedBody = Arrays.asList(new Position(2, 0), new Position(3, 0));
-        List<Position> snakeUpExpectedBody = Arrays.asList(new Position(0, 1), new Position(0, 0));
-        List<Position> snakeDownExpectedBody = Arrays.asList(new Position(0, 2), new Position(0, 3));
-        List<Position> snakeRightSinglePartExpectedBody = Arrays.asList(new Position(1, 0));
-        List<Position> snakeWithSpeedTwoExpectedBody = Arrays.asList(new Position(2, 0), new Position(0, 0));
+        List<Position> snakeRightExpectedBody = asList(new Position(1, 0), new Position(0, 0));
+        List<Position> snakeLeftExpectedBody = asList(new Position(2, 0), new Position(3, 0));
+        List<Position> snakeUpExpectedBody = asList(new Position(0, 1), new Position(0, 0));
+        List<Position> snakeDownExpectedBody = asList(new Position(0, 2), new Position(0, 3));
+        List<Position> snakeRightSinglePartExpectedBody = Collections.singletonList(new Position(1, 0));
+        List<Position> snakeWithSpeedTwoExpectedBody = asList(new Position(2, 0), new Position(0, 0));
 
         return new Object[][]{
                 {snakeRight, snakeRightExpectedBody},
@@ -73,35 +74,35 @@ public class SnakeTest {
         return new Object[][]{
                 {
                         new Snake(new Position(1, 0), Direction.RIGHT, 1), 1,
-                        Arrays.asList(new Position(1, 0), new Position(0, 0))
+                        asList(new Position(1, 0), new Position(0, 0))
                 },
                 {
                         new Snake(new Position(1, 0), Direction.LEFT, 1), 1,
-                        Arrays.asList(new Position(1, 0), new Position(2, 0))
+                        asList(new Position(1, 0), new Position(2, 0))
                 },
                 {
                         new Snake(new Position(1, 1), Direction.UP, 1), 1,
-                        Arrays.asList(new Position(1, 1), new Position(1, 0))
+                        asList(new Position(1, 1), new Position(1, 0))
                 },
                 {
                         new Snake(new Position(1, 1), Direction.DOWN, 1), 1,
-                        Arrays.asList(new Position(1, 1), new Position(1, 2))
+                        asList(new Position(1, 1), new Position(1, 2))
                 },
                 {
                         new Snake(new Position(1, 0), Direction.RIGHT, 2), 1,
-                        Arrays.asList(new Position(1, 0), new Position(-1, 0))
+                        asList(new Position(1, 0), new Position(-1, 0))
                 },
                 {
                         new Snake(new Position(1, 0), Direction.LEFT, 2), 1,
-                        Arrays.asList(new Position(1, 0), new Position(3, 0))
+                        asList(new Position(1, 0), new Position(3, 0))
                 },
                 {
                         new Snake(new Position(1, 1), Direction.UP, 2), 1,
-                        Arrays.asList(new Position(1, 1), new Position(1, -1))
+                        asList(new Position(1, 1), new Position(1, -1))
                 },
                 {
                         new Snake(new Position(1, 1), Direction.DOWN, 2), 1,
-                        Arrays.asList(new Position(1, 1), new Position(1, 3))
+                        asList(new Position(1, 1), new Position(1, 3))
                 }
         };
     }

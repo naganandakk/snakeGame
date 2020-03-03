@@ -30,15 +30,9 @@ public class Snake {
     }
 
     public void changeMovementDirection(Direction changeTowards) {
-        Map<Direction, Direction> oppositeDirections = new HashMap<>();
-        oppositeDirections.put(Direction.LEFT, Direction.RIGHT);
-        oppositeDirections.put(Direction.RIGHT, Direction.LEFT);
-        oppositeDirections.put(Direction.UP, Direction.DOWN);
-        oppositeDirections.put(Direction.DOWN, Direction.UP);
+        Direction oppositeDirection = changeTowards.opposite();
 
-        Direction oppositeDirection = oppositeDirections.getOrDefault(changeTowards, null);
-
-        if (!oppositeDirection.equals(movementDirection)) {
+        if (!movementDirection.equals(oppositeDirection)) {
             movementDirection = changeTowards;
         }
     }
