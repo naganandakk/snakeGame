@@ -5,6 +5,7 @@ import com.naganandakk.snake.enums.Direction;
 import java.util.*;
 
 public class Snake {
+    private static int HEAD_INDEX = 0;
 
     private Direction movementDirection;
     private Integer speed;
@@ -40,56 +41,21 @@ public class Snake {
     public void eat(int foodQuantity) {
         while(foodQuantity-- > 0) {
             Position tail = body.get(body.size() - 1);
-            Integer tailX = tail.getX();
-            Integer tailY = tail.getY();
-
-            switch (movementDirection) {
-                case RIGHT:
-                    tailX -= speed;
-                    break;
-                case LEFT:
-                    tailX += speed;
-                    break;
-                case UP:
-                    tailY -= speed;
-                    break;
-                case DOWN:
-                    tailY += speed;
-                    break;
-            }
-
-            body.add(new Position(tailX, tailY));
+            body.add(tail.next(movementDirection.opposite(), speed));
         }
     }
 
     public void move() {
-        // shift snake body except head
+        // shift snake body parts except head
         if (body.size() > 1) {
             for (int index = body.size() - 1; index >= 1; index--) {
                 body.set(index, body.get(index - 1));
             }
         }
 
-        Position head = body.get(0);
-        Integer headX = head.getX();
-        Integer headY = head.getY();
+        Position head = body.get(HEAD_INDEX);
+        Position newHead = head.next(movementDirection, speed);
 
-        switch (movementDirection) {
-            case RIGHT:
-                headX += speed;
-                break;
-            case LEFT:
-                headX -= speed;
-                break;
-            case UP:
-                headY += speed;
-                break;
-            case DOWN:
-                headY -= speed;
-                break;
-        }
-
-        Position newHead = new Position(headX, headY);
-        body.set(0, newHead);
+        body.set(HEAD_INDEX, newHead);
     }
 }
