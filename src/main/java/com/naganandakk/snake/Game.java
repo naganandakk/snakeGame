@@ -98,7 +98,6 @@ public class Game extends JPanel implements ActionListener {
         if (continueGame()) {
             feedFoodToSnake();
             snake.move();
-            snake.eat(2);
         }
         repaint();
     }
