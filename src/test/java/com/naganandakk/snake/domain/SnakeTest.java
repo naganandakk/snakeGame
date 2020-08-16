@@ -153,6 +153,24 @@ public class SnakeTest {
         checkSnakeBody(snake, expectedBody);
     }
 
+    @Test
+    void shouldCrossSelf() {
+        Snake snake = new Snake(
+                new Position(0, 0),
+                Direction.RIGHT,
+                1
+        );
+        snake.eat(10);
+        snake.changeMovementDirection(Direction.DOWN);
+        snake.move();
+        snake.changeMovementDirection(Direction.LEFT);
+        snake.move();
+        snake.changeMovementDirection(Direction.UP);
+        snake.move();
+
+        assertEquals(true, snake.crossedSelf());
+    }
+
     private void checkSnakeBody(Snake snake, List<Position> expectedBody) {
         List<Position> actualBody = snake.getBody();
         for (int index = 0; index < expectedBody.size(); index++) {

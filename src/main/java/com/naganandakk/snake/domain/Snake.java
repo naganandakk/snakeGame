@@ -62,4 +62,17 @@ public class Snake {
     public Position head() {
         return body.get(HEAD_INDEX);
     }
+
+    public boolean crossedSelf() {
+        boolean snakeCrossedSelf = false;
+
+        for (int index = 1; index < body.size(); index++) {
+            if ((head().getX().equals(body.get(index).getX())) && (head().getY().equals(body.get(index).getY()))) {
+                snakeCrossedSelf = true;
+                break;
+            }
+        }
+
+        return snakeCrossedSelf;
+    }
 }

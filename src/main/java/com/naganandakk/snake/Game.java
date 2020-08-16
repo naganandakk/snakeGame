@@ -110,7 +110,7 @@ public class Game extends JPanel implements ActionListener {
             snakeInsideBoard = false;
         }
 
-        return snakeInsideBoard && (!aborted);
+        return snakeInsideBoard && (!aborted) && (!snake.crossedSelf());
     }
 
     private void displayStats() {
