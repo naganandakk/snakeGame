@@ -48,7 +48,7 @@ public class Board {
         throw new FoodNotFoundException("Food not found at given position");
     }
 
-    private void checkPositionForOutOfBoundary(Position position) {
+    public void checkPositionForOutOfBoundary(Position position) {
         int posX = position.getX();
         int posY = position.getY();
 

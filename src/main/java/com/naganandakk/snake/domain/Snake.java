@@ -5,11 +5,11 @@ import com.naganandakk.snake.enums.Direction;
 import java.util.*;
 
 public class Snake {
-    private static int HEAD_INDEX = 0;
+    private static final int HEAD_INDEX = 0;
 
     private Direction movementDirection;
-    private Integer speed;
-    private List<Position> body;
+    private final Integer speed;
+    private final List<Position> body;
 
     public Snake(Position initialPosition, Direction movementDirection, Integer speed) {
         this.movementDirection = movementDirection;
@@ -57,5 +57,9 @@ public class Snake {
         Position newHead = head.next(movementDirection, speed);
 
         body.set(HEAD_INDEX, newHead);
+    }
+
+    public Position head() {
+        return body.get(HEAD_INDEX);
     }
 }
