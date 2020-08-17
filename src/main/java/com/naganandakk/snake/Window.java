@@ -6,7 +6,7 @@ import com.naganandakk.snake.domain.Snake;
 import com.naganandakk.snake.enums.Direction;
 
 import javax.swing.JFrame;
-import java.awt.EventQueue;4
+import java.awt.EventQueue;
 import javax.swing.WindowConstants;
 
 public class Window extends JFrame {
