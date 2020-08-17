@@ -8,8 +8,8 @@ import java.util.Set;
 
 public class Board {
 
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
     private final Set<Food> availableFood = new HashSet<>();
 
     public Board(int width, int height) {
@@ -23,6 +23,14 @@ public class Board {
 
     public int getHeight() {
         return height;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public Set<Food> getAvailableFood() {

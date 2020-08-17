@@ -8,10 +8,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
@@ -27,8 +24,6 @@ import com.naganandakk.snake.exceptions.PositionOutOfBoundException;
 
 public class Game extends JPanel implements ActionListener {
 
-    private static final int SCREEN_WIDTH = 500;
-    private static final int SCREEN_HEIGHT = 500;
     private static final int POSITION_PADDING = 20;
     private static final int TIMER_DELAY = 1000;
     private static final Font fontSmall = new Font("Helvetica", Font.BOLD, 14);
@@ -51,26 +46,40 @@ public class Game extends JPanel implements ActionListener {
     }
 
     private void init() {
-        try {
-            random = SecureRandom.getInstanceStrong();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
+        initRandomGenerator();
+        addWindowEventHandlers();
         addKeyListener(new GameKeyAdapter());
         setBackground(Color.black);
         setFocusable(true);
-        setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        setPreferredSize(new Dimension(board.getWidth(), board.getHeight()));
         addFoodToBoard();
+    }
+
+    private void initRandomGenerator() {
+        try {
+            random = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            System.exit(-1);
+        }
+    }
+
+    private void addWindowEventHandlers() {
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                board.setWidth(getWidth());
+                board.setHeight(getHeight());
+            }
+        });
     }
 
     private void addFoodToBoard() {
         int x = Math.max(
-                random.nextInt(SCREEN_WIDTH - POSITION_PADDING),
+                random.nextInt(board.getWidth() - POSITION_PADDING),
                 POSITION_PADDING
         );
         int y = Math.max(
-                random.nextInt(SCREEN_HEIGHT - POSITION_PADDING),
+                random.nextInt(board.getHeight() - POSITION_PADDING),
                 POSITION_PADDING
         );
 
@@ -111,11 +120,14 @@ public class Game extends JPanel implements ActionListener {
         repaint();
     }
 
+
+
     private boolean continueGame() {
         boolean snakeInsideBoard = true;
         try {
             board.checkPositionForOutOfBoundary(snake.head());
         } catch (PositionOutOfBoundException e) {
+            e.printStackTrace();
             snakeInsideBoard = false;
         }
 
@@ -185,11 +197,11 @@ public class Game extends JPanel implements ActionListener {
         String gameOverMsg = "Game Over";
         String scoreMsg = "Score : " + score;
 
-        int gameOverX = (SCREEN_WIDTH - metrics.stringWidth(gameOverMsg)) / 2;
-        int gameOverY = SCREEN_HEIGHT / 2;
+        int gameOverX = (board.getWidth() - metrics.stringWidth(gameOverMsg)) / 2;
+        int gameOverY = board.getHeight() / 2;
         drawString(gameOverMsg, gameOverX, gameOverY, Color.white, fontSmall);
 
-        int scoreX = (SCREEN_WIDTH - metrics.stringWidth(scoreMsg)) / 2;
+        int scoreX = (board.getWidth() - metrics.stringWidth(scoreMsg)) / 2;
         int scoreY = gameOverY + 20;
         drawString(scoreMsg, scoreX, scoreY, Color.white, fontSmall);
 

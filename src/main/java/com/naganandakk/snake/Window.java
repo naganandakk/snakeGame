@@ -23,7 +23,7 @@ public class Window extends JFrame {
                 10
         );
         add(new Game(board, snake));
-        setResizable(false);
+        setResizable(true);
         pack();
 
         setTitle("Snake");
