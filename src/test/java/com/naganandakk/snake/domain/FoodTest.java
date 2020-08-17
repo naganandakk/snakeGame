@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.naganandakk.snake.exceptions.InvalidPositionException;
 import org.junit.jupiter.api.Test;
 
-public class FoodTest {
+class FoodTest {
 
     @Test
-    public void shouldCreateFoodWithGivenPosition() {
+    void shouldCreateFoodWithGivenPosition() {
         Position position = new Position(1, 1);
 
         Food food = new Food(position);
@@ -17,7 +17,7 @@ public class FoodTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenPositionIsNull() {
+    void shouldThrowExceptionWhenPositionIsNull() {
         assertThrows(InvalidPositionException.class, () -> {
            new Food(null);
         });

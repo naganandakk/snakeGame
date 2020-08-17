@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
 
 import com.naganandakk.snake.domain.Board;
@@ -31,12 +33,14 @@ public class Game extends JPanel implements ActionListener {
     private static final int TIMER_DELAY = 1000;
     private static final Font fontSmall = new Font("Helvetica", Font.BOLD, 14);
     private static final Font fontMedium = new Font("Helvetica", Font.BOLD, 18);
-    private final Board board;
-    private final Snake snake;
+    private final transient Board board;
+    private final transient Snake snake;
     private int score;
     private boolean aborted = false;
     private Timer timer;
-    private Graphics graphics;
+    private transient Graphics graphics;
+
+    private Random random;
 
     public Game(Board board, Snake snake) {
         this.board = board;
@@ -47,6 +51,12 @@ public class Game extends JPanel implements ActionListener {
     }
 
     private void init() {
+        try {
+            random = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
         addKeyListener(new GameKeyAdapter());
         setBackground(Color.black);
         setFocusable(true);
@@ -55,7 +65,6 @@ public class Game extends JPanel implements ActionListener {
     }
 
     private void addFoodToBoard() {
-        Random random = new Random();
         int x = Math.max(
                 random.nextInt(SCREEN_WIDTH - POSITION_PADDING),
                 POSITION_PADDING
@@ -114,8 +123,6 @@ public class Game extends JPanel implements ActionListener {
     }
 
     private void displayStats() {
-        FontMetrics metrics = getFontMetrics(fontSmall);
-
         String stats = "Score : " + score;
 
         int x = POSITION_PADDING / 2;
@@ -167,7 +174,9 @@ public class Game extends JPanel implements ActionListener {
                 addFoodToBoard();
             }
         }
-        catch (FoodNotFoundException ignored) { }
+        catch (FoodNotFoundException ignored) {
+            // Ignore
+        }
     }
 
     private void endGame() {
@@ -214,6 +223,8 @@ public class Game extends JPanel implements ActionListener {
                     break;
                 case KeyEvent.VK_Q:
                     aborted = true;
+                    break;
+                default:
                     break;
             }
         }

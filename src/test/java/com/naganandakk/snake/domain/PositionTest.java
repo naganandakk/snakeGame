@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PositionTest {
+class PositionTest {
 
     private static Object[][] shouldReturnValidNextPositionProvider() {
         return new Object[][]{

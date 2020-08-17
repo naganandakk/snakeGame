@@ -7,6 +7,7 @@ import com.naganandakk.snake.enums.Direction;
 
 import javax.swing.JFrame;
 import java.awt.EventQueue;
+import javax.swing.WindowConstants;
 
 public class Window extends JFrame {
 
@@ -27,7 +28,7 @@ public class Window extends JFrame {
 
         setTitle("Snake");
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {

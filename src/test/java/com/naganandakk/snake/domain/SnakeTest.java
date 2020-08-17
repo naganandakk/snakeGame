@@ -11,7 +11,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SnakeTest {
+class SnakeTest {
 
     private static Object[][] shouldChangeMovementDirectionExceptOppositeDirectionProvider() {
         return new Object[][]{
