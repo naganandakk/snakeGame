@@ -6,10 +6,10 @@ import com.naganandakk.snake.exceptions.FoodNotFoundException;
 import com.naganandakk.snake.exceptions.PositionOutOfBoundException;
 import org.junit.jupiter.api.Test;
 
-public class BoardTest {
+class BoardTest {
 
     @Test
-    public void shouldCreateBoardWithValidWidthAndHeight() {
+    void shouldCreateBoardWithValidWidthAndHeight() {
         int width = 10;
         int height = 10;
 
@@ -20,7 +20,7 @@ public class BoardTest {
     }
 
     @Test
-    public void shouldCreateEmptySetOfFoodOnBoardCreation() {
+    void shouldCreateEmptySetOfFoodOnBoardCreation() {
         int width = 10;
         int height = 10;
 
@@ -30,7 +30,7 @@ public class BoardTest {
     }
 
     @Test
-    public void shouldAddGivenFoodToBoard() {
+    void shouldAddGivenFoodToBoard() {
         Position position = new Position(0, 0);
         Food food = new Food(position);
         Board board = new Board(10, 10);
@@ -41,7 +41,7 @@ public class BoardTest {
     }
 
     @Test
-    public void shouldClearGivenFoodFromBoard() {
+    void shouldClearGivenFoodFromBoard() {
         Position position = new Position(0, 0);
         Food food = new Food(position);
         Board board = new Board(10, 10);
@@ -53,7 +53,7 @@ public class BoardTest {
     }
 
     @Test
-    public void shouldReturnFoodAtGivenPosition() {
+    void shouldReturnFoodAtGivenPosition() {
         Position position = new Position(0, 0);
         Food food = new Food(position);
         Board board = new Board(10, 10);
@@ -64,7 +64,7 @@ public class BoardTest {
     }
 
     @Test
-    public void shouldThrowFoodNotFoundExceptionWhenFoodIsNotPresentAtGivenPosition() {
+    void shouldThrowFoodNotFoundExceptionWhenFoodIsNotPresentAtGivenPosition() {
         Position position = new Position(0, 0);
         Food food = new Food(position);
         Board board = new Board(10, 10);
@@ -77,7 +77,7 @@ public class BoardTest {
     }
 
     @Test
-    public void shouldThrowPositionOutOfBoundWhenAddFoodCalledWithInvalidPositionFood() {
+    void shouldThrowPositionOutOfBoundWhenAddFoodCalledWithInvalidPositionFood() {
         Position position = new Position(20, 0);
         Food food = new Food(position);
         Board board = new Board(10, 10);
